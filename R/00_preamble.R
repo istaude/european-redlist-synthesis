@@ -1,4 +1,4 @@
-setwd("/data/Ingmar/NationalRedList_Synthesis")
+setwd("/data/Ingmar/european_redlist_synthesis")
 # load packages
 library(tidyverse)
 library(data.table)

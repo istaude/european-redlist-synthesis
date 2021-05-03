@@ -466,5 +466,5 @@ redlist_data <- bind_rows(
     Wales_redlist))
 
 # WRITE CSV  ------------------------------------------------------
-setwd("/data/Ingmar/NationalRedList_Synthesis")
+setwd("/data/Ingmar/european_redlist_synthesis")
 write.table(redlist_data, "Data/data_outputs/redlist_data.csv", row.names = FALSE, sep = ",")

@@ -5,8 +5,7 @@ source("R/00_preamble.R")
 # Publishing year of red lists -----------------------------------------
 bib <- read_excel("Data/bibliography.xlsx")
 length(bib$Country)
-length(unique(redlist_data$Country))
-# w468 h522
+
 
 ggplot(bib, aes(x=Publ_year, y = reorder(Country, -Publ_year))) +
   geom_bar(stat="identity", fill="#d1495b", alpha=.6, width=.8) +
@@ -92,6 +91,7 @@ rl_dis_en %>%
         axis.text.x = element_text(color = "gray40"),
         axis.text.y = element_text(color = "gray40"),
         text = element_text(size=14)) +
+  coord_cartesian( ylim=c(0, 2000)) +
   scale_x_discrete(
     expand = c(0, 0.0625),
     labels = c("0 \u2013 25%", "25 \u2013 50%", "50 \u2013 75%", "75 \u2013 100%")
@@ -102,7 +102,7 @@ rl_dis_en %>%
 ggsave(
   "Figures/range_threat.png",
   width = 7.6,
-  height = 2.8,
+  height = 3.5,
   dpi = 1200,
   family="Helvetica"
 )
