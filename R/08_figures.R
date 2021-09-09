@@ -3,17 +3,24 @@ source("R/00_preamble.R")
 
 
 # Publishing year of red lists -----------------------------------------
-bib <- read_excel("Data/bibliography.xlsx")
+bib <- read_excel("Data/bib.xlsx")
 length(bib$Country)
 
 
-ggplot(bib, aes(x=Publ_year, y = reorder(Country, -Publ_year))) +
-  geom_bar(stat="identity", fill="#d1495b", alpha=.6, width=.8) +
-  geom_text(aes(label=Country), hjust=-0.1, fontface = "italic") +
+ggplot(bib, aes(x=Publ_year, y = reorder(Country, Publ_year))) +
+  geom_segment( aes(x=1980, 
+                    xend=Publ_year, 
+                    y=reorder(Country, Publ_year), 
+                    yend= reorder(Country, Publ_year)),
+                col = "grey60") +
+  geom_point(stat="identity", col="#d1495b",  size = 3) +
+  geom_line(stat="identity", col="#d1495b", alpha=.6) +
+  geom_text(aes(label=Country), hjust=-0.2, fontface = "italic") +
   coord_cartesian(xlim=c(1989, 2032)) +
   scale_x_continuous(breaks=seq(1900, 2020, 10)) +
   theme_bw()+
-  theme(panel.grid.major = element_blank(),
+  scale_y_discrete(limits=rev)+
+  theme(panel.grid.major.y = element_blank(),
         panel.grid.minor = element_blank(), 
         text = element_text(size=14),
         axis.text.y = element_blank(),
@@ -25,18 +32,15 @@ ggplot(bib, aes(x=Publ_year, y = reorder(Country, -Publ_year))) +
 
 ggsave(
   "Figures/bib.png",
-  width = 5.4,
+  width = 5.5,
   height = 7.4,
   dpi = 1200,
   family="Helvetica"
 )
 
 
-
-
 # Number of Botanical Countries in which species are threatened -----------
 rl_dis <- fread("Data/data_outputs/rlspecies_distribution.csv")
-
 rl_dis %>% 
   group_by(species) %>% 
   summarise(bcountries_threatened = sum(Threatened)) %>% 
@@ -46,7 +50,7 @@ ggplot() +
   geom_chicklet(width = 1, fill = "#d1495b") +
   geom_text( aes(label=n), vjust=-.2, fontface = "italic") +
   ylab("Number of species") + 
-  xlab("Number of botanical countries threatened") +
+  xlab("Number of botanical countries where a species is listed as threatened") +
   coord_cartesian(xlim=c(1, 21), ylim=c(0, 4600)) +
   theme_bw() +
   theme(panel.grid.major = element_blank(),
@@ -61,8 +65,8 @@ ggplot() +
 
 ggsave(
   "Figures/nbot.png",
-  width = 7.6,
-  height = 2.8,
+  width = 9.3,
+  height = 3.65,
   dpi = 1200,
   family="Helvetica"
   )
@@ -81,7 +85,7 @@ rl_dis_en %>%
   geom_chicklet(width = 0.75, fill = "#d1495b") +
   geom_text( aes(label=n), vjust=-.2, fontface = "italic") +
   ylab("Number of species") + 
-  xlab("Botanical countries in range threatened (%)") +
+  xlab("Percentage of distribution threatened (%)") +
   theme_bw() +
   theme(panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
@@ -113,7 +117,8 @@ iucn_threat <- fread("Data/data_outputs/iucn_threat.csv")
 
 iucn_threat %>%
   mutate(redlistCategory = fct_relevel(as.factor(redlistCategory), 
-                                       c("Extinct", "Threatened", "Lower Risk",  "Data Deficient",  "Not Evaluated")) ) %>% 
+                                       rev(c("Extinct", "Threatened", 
+                                         "Lower Risk",  "Data Deficient",  "Not Evaluated"))) ) %>% 
   ggplot( aes(threat, n, fill = redlistCategory)) +
   geom_chicklet(width = 0.75) +
   scale_y_continuous(expand = c(0, 0.0625), 
@@ -133,12 +138,13 @@ iucn_threat %>%
   labs(x = NULL, y = NULL, fill = NULL) +
   theme_ipsum_rc(grid="X", base_family = "Helvetica") +
   theme(legend.position = "top",
-        axis.text.y = element_blank())
+        axis.text.y = element_blank(),
+        legend.text = element_text(size=17))
 
 
 ggsave(
   "Figures/iucn_cross.png",
-  width = 7.6,
+  width = 10.1,
   height = 2.8,
   dpi = 1200
 )
