@@ -9,4 +9,9 @@ library(rgbif)
 library(hrbrthemes)
 library(scales)
 library(ggchicklet)
+library(rgbif)
+library(scrubr)
+library(treemap)
+
+
 

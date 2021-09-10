@@ -68,7 +68,7 @@ rl_dis_en %>%
 # find example species occurring in two countries only, there being threatened
 rl_dis_en %>% 
   filter(percentage_threatened == 1) %>% 
-  filter(no_countries == 2) %>% View
+  filter(no_countries == 4) %>% View
 
 
 # create data frame for Achillea thracica, with area codes, for example figure 
@@ -94,21 +94,33 @@ rl_dis_en %>% count(no_countries)
 
 
 # which countries contribute most to the species threatened in 100% of their range
-rl_dis_en %>% 
+threat_hotspots <- rl_dis_en %>% 
   filter(percentage_threatened == 1) %>% 
   select(species) %>% 
   left_join(rl_dis) %>%
   count(botanical_countries_l3) %>% 
-  arrange(desc(n)) %>% 
-  View
+  arrange(desc(n))
+
+View(threat_hotspots)
+
+# write csv
+write.csv(threat_hotspots, "Data/data_outputs/threat_hotspots.csv", row.names = FALSE, sep = ",")
 
 
 # which genera contribute most to the species threatened in 100% of their range
-rl_dis_en %>% 
+threat_phylo <- rl_dis_en %>% 
   filter(percentage_threatened == 1) %>% 
   mutate(genera = str_split_fixed(species, " ", 2)[,1]) %>% 
   count(genera) %>% 
   arrange(desc(n))
+
+nrow(threat_phylo)
+
+View(threat_phylo)
+
+# write csv
+write.csv(threat_phylo, "Data/data_outputs/threat_phylo.csv", row.names = FALSE, sep = ",")
+
 
 
 

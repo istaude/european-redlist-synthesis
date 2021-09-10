@@ -146,5 +146,43 @@ ggsave(
   "Figures/iucn_cross.png",
   width = 10.1,
   height = 2.8,
-  dpi = 1200
+  dpi = 1200,
+  family="Helvetica"
 )
+
+
+# Fanning plot of threatened genera ------------------------------------------
+threat_phylo <- fread("Data/data_outputs/threat_phylo.csv")
+
+# Plot
+threat_phylo <- threat_phylo %>% 
+  filter(n >= 10) %>% 
+  mutate(genera_n  = paste0(genera ," (", n, ")") )
+
+
+treemap(threat_phylo,
+        # data
+        index="genera_n",
+        vSize="n",
+        type="value",
+        vColor="n",
+        mapping=c(-30, 40, 200),
+        
+        # Main
+        title="",
+        palette="RdPu",
+        position.legend = "none",
+        
+        # Borders:
+        border.col=c("black"),             
+        border.lwds=1,
+        aspRatio = 1.1,
+        
+        # Labels
+        force.print.labels = T,
+        fontface.labels=1, 
+        overlap.labels=0,
+        bg.labels=c("transparent"),              
+        align.labels=c("left", "top")) 
+
+
