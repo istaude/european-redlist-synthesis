@@ -63,3 +63,9 @@ iucn_rl %>% filter(is.na(redlistCategory)) %>% nrow / nrow(iucn_rl)
 # 87% of the species endemic to europe and threatened in at least one country is not assessed
 # of the species we classify as 100% threatened in their range
 
+# how many of the 100% threatened species is not assessed
+iucn_rl %>%
+  filter(percentage_threatened == 1) %>% 
+  filter(is.na(redlistCategory) | redlistCategory == "Data Deficient") %>% 
+  nrow
+1553/1842

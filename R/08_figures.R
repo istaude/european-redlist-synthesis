@@ -31,7 +31,7 @@ ggplot(bib, aes(x=Publ_year, y = reorder(Country, Publ_year))) +
 
 
 ggsave(
-  "Figures/bib.png",
+  "Figures/bib.pdf",
   width = 5.5,
   height = 7.4,
   dpi = 1200,
@@ -64,7 +64,7 @@ ggplot() +
   theme_ipsum_rc(grid="Y", base_family = "Helvetica", axis_title_just = "mm", axis_title_size = 12)
 
 ggsave(
-  "Figures/nbot.png",
+  "Figures/nbot.pdf",
   width = 9.3,
   height = 3.65,
   dpi = 1200,
@@ -104,7 +104,7 @@ rl_dis_en %>%
 
 
 ggsave(
-  "Figures/range_threat.png",
+  "Figures/range_threat.pdf",
   width = 7.6,
   height = 3.5,
   dpi = 1200,
@@ -143,7 +143,7 @@ iucn_threat %>%
 
 
 ggsave(
-  "Figures/iucn_cross.png",
+  "Figures/iucn_cross.pdf",
   width = 10.1,
   height = 2.8,
   dpi = 1200,
