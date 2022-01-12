@@ -16,7 +16,7 @@ In the R folder you will find our complete analysis. The R files have following 
 1. "00_preamble.R" lists all the packages used in our analyis.
 2. "01_rldata.R" loads each national Red List, filters threatened species, and combines all lists.
 3. "02_rlharmonization.R" harmonizes the different name inputs across red lists and checks for synonyms.
-4. "03_rlbotanicalcountries.R" assigns political countries, a botanical country. This is necessary to make use of the species geographic distribution data from POWO.
+4. "03_rlbotanicalcountries.R" assigns botanical countries to political countries. This is necessary to use the geographical distribution data of the species from POWO.
 5. "04_kewdata.R" loads the POWO data, which is not in our data folder due to large file size.
 6. "05_redlist_kew_merge.R" creates the data output #2 ("rlspecies_distribution.csv", see above)
 7. "06_threatened_range.R" primarily calculates for each European endemic species extinction risk across its geographic range.
