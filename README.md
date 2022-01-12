@@ -1,7 +1,7 @@
 This repository is to reproduce Holz et al. 2022 - Assessing extinction risk across the geographic ranges of plant species in Europe.
+
 The code was run with the following version of R: 4.1.1.
 
-This readme file contains metadata.
 There are three folders in the repository: data, R, and figures.
 
 In the data folder you will find all national red lists and our data outputs. The main outputs are as follows:
